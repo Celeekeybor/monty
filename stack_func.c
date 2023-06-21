@@ -1,99 +1,99 @@
 #include "monty.h"
 /**
- * _push - push int to a stack
- * @stack: linked lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _push - push  to a pile
+ * @pile: monty pile linked list
+ * @queue_no: number of line opcode 
  */
-void _push(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
+void _push(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
 {
-	stack_t *top;
-	(void)line_number;
+	stack_t *up;
+	(void)queue_no;
 
-	top = malloc(sizeof(stack_t));
-	if (top == NULL)
+	up = malloc(sizeof(stack_t));
+	if (up == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	top->n = var_global.push_arg;
-	top->next = *stack;
-	top->prev = NULL;
-	if (*stack != NULL)
-		(*stack)->prev = top;
-	*stack = top;
+	up->n = var_global.push_arg;
+	up->next = *pile;
+	up->prev = NULL;
+	if (*pile != NULL)
+		(*pile)->prev = up;
+	*pile = up;
 }
 
 /**
  * _pall - print all function
- * @stack: pointer to linked list stack
- * @line_number: number of line opcode occurs on
+ * @pile: pointer to linked list pile
+ * @queue_no: number of line opcode 
  */
-void _pall(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
+void _pall(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
 {
-	stack_t *runner;
+	stack_t *checker;
 
-	runner = *stack;
-	while (runner != NULL)
+	checker = *pile;
+	while (checker != NULL)
 	{
-		printf("%d\n", runner->n);
-		runner = runner->next;
+		printf("%d\n", checker->n);
+		checker = checker->next;
 	}
 }
 
 /**
- * _pint - print int a top of stack
- * @stack: pointer to linked list stack
- * @line_number: number of line opcode occurs on
+ * _pint - print int a up of pile
+ * @pile: point to linked list pile
+ * @queue_no: number of line opcode 
  *
  */
-void _pint(stack_t **stack, unsigned int line_number)
+void _pint(stack_t **pile, unsigned int queue_no)
 {
-	stack_t *runner;
+	stack_t *checker;
 
-	runner = *stack;
-	if (runner == NULL)
+	checker = *pile;
+	if (checker == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pint, pile empty\n", queue_no);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", runner->n);
+	printf("%d\n", checker->n);
 }
 
 /**
  * _pop - remove element a list
- *@stack: pointer to first node
- *@line_number: integer
- *Return: void
+ *@pile: point to first node
+ *@queue_no: integer
+ *Return: zero
  */
-void _pop(stack_t **stack, unsigned int line_number)
+void _pop(stack_t **pile, unsigned int queue_no)
 {
-	stack_t *nodo = *stack;
+	stack_t *node = *pile;
 
-	if (stack == NULL || *stack == NULL)
+	if (pile == NULL || *pile == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%d: can't pop an empty pile\n", queue_no);
 		exit(EXIT_FAILURE);
 	}
-	*stack = nodo->next;
-	if (*stack != NULL)
-		(*stack)->prev = NULL;
-	free(nodo);
+	*pile = node->next;
+	if (*pile != NULL)
+		(*pile)->prev = NULL;
+	free(node);
 }
 
 /**
  * free_dlistint - free a list
- * @head: pointer to first node
+ * @head: point to the first node
  *
  */
 void free_dlistint(stack_t *head)
 {
-	stack_t *tmp;
+	stack_t *temp;
 
 	while (head != NULL)
 	{
-		tmp = head->next;
+		temp = head->next;
 		free(head);
-		head = tmp;
+		head = temp;
 	}
 }
