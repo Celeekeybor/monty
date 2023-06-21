@@ -1,98 +1,98 @@
 #include "monty.h"
 /**
- * _swap - swap top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _swap - swap top of line y second top line
+ * @line: pointer to lists for monty line
+ * @dash_no: number of line opcode occurs on
  */
 
-void _swap(stack_t **stack, unsigned int line_number)
+void _swap(stack_t **line, unsigned int dash_no)
 {
-	stack_t *runner;
-	int tmp;
+	stack_t *checker;
+	int now;
 
-	runner = *stack;
-	if (runner == NULL || runner->next == NULL)
+	checker = *line;
+	if (checker == NULL || checker->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't swap, line too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	tmp = runner->n;
-	runner->n = runner->next->n;
-	runner->next->n = tmp;
+	now = checker->n;
+	checker->n = checker->next->n;
+	checker->next->n = now;
 }
 
 /**
- * _add - add top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _add - add top of line y second top line
+ * @line: point to monty lists
+ * @dash_no: number of line opcode 
  */
 
-void _add(stack_t **stack, unsigned int line_number)
+void _add(stack_t **line, unsigned int dash_no)
 {
-	stack_t *tmp = *stack;
-	int sum = 0, i = 0;
+	stack_t *now = *line;
+	int val = 0, i = 0;
 
-	if (tmp == NULL)
+	if (now == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't add, line too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
 
-	while (tmp)
+	while (now)
 	{
-		tmp = tmp->next;
+		now = now->next;
 		i++;
 	}
 
-	if (stack == NULL || (*stack)->next == NULL || i <= 1)
+	if (line == NULL || (*line)->next == NULL || i <= 1)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't add, line too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	sum = (*stack)->next->n + (*stack)->n;
-	_pop(stack, line_number);
+	val = (*line)->next->n + (*line)->n;
+	_pop(line, dash_no);
 
-	(*stack)->n = sum;
+	(*line)->n = val;
 }
 
 /**
- * _nop - nop top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _nop - nop top of line y second top line
+ * @line: point to monty lists
+ * @dash_no: number of line opcode 
  */
 
-void _nop(__attribute__ ((unused))stack_t **stack,
-		__attribute__ ((unused)) unsigned int line_number)
+void _nop(__attribute__ ((unused))stack_t **line,
+		__attribute__ ((unused)) unsigned int dash_no)
 {
 	;
 }
 
 /**
- * _pchar - prints the ASCII value of a number
- * @stack: pointer to the top of the stack
- * @line_number: the index of the current line
+ * _pchar -  ASCII value  a number
+ * @line: point to line to
+ * @dash_no: current index
  *
  */
-void _pchar(stack_t **stack, unsigned int line_number)
+void _pchar(stack_t **line, unsigned int dash_no)
 {
 	int val;
 
-	if (stack == NULL || *stack == NULL)
+	if (line == NULL || *line == NULL)
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, line empty\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*line);
 		exit(EXIT_FAILURE);
 	}
 
-	val = (*stack)->n;
+	val = (*line)->n;
 	if (val > 127 || val < 0)
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*line);
 		exit(EXIT_FAILURE);
 	}
 
@@ -101,13 +101,13 @@ void _pchar(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * _isalpha - checks if int is in alphabet
- * @c: int
- * Return: 1 if yes, 0 if no
+ * _isalpha - check if alphabet
+ * @arg: argument
+ * Return: true or false
  */
-int _isalpha(int c)
+int _isalpha(int arg)
 {
-	if ((c >= 97 && c <= 122) || (c >= 65 && c <= 90))
+	if ((arg >= 97 && arg <= 122) || (arg >= 65 && arg <= 90))
 		return (1);
 	else
 		return (0);
