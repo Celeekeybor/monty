@@ -1,46 +1,46 @@
 #include "monty.h"
 
 /**
- * _sub - replace top of stack y 
- * @pile: pointer to lists monty pile
- * @dash_no: number of dash opcode occurs on
+ * _sub - val top of pile y second top pile
+ * @pile: pointer to lists for monty pile
+ * @dash_no: number of line opcode occurs on
  */
 void _sub(stack_t **pile, unsigned int dash_no)
 {
 	stack_t *tmp = *pile;
-	int replace = 0, val = 0;
+	int val = 0, i = 0;
 
 	if (tmp == NULL)
 	{
-		fprintf(stderr, "L%d: can't replace, pile too short\n", dash_no);
+		fprintf(stderr, "L%d: can't val, pile too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
 
 	while (tmp)
 	{
 		tmp = tmp->next;
-		val++;
+		i++;
 	}
 
-	if (pile == NULL || (*pile)->next == NULL || val <= 1)
+	if (pile == NULL || (*pile)->next == NULL || i <= 1)
 	{
-		fprintf(stderr, "L%d: can't replace, pile too short\n", dash_no);
+		fprintf(stderr, "L%d: can't val, pile too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	replace = (*pile)->next->n - (*pile)->n;
+	val = (*pile)->next->n - (*pile)->n;
 	_pop(pile, dash_no);
 
-	(*pile)->n = replace;
+	(*pile)->n = val;
 }
 
 /**
- * _mul - mul top of pile y second top pile
- * @pile: pointer to lists for monty pile
- * @dash_no: number of line opcode occurs on
+ * _mul - mul top of pile y 
+ * @pile: pointer to monty pile
+ * @dash_no: number of line opcode 
  */
 void _mul(stack_t **pile, unsigned int dash_no)
 {
-	int elem;
+	int num;
 
 	if (*pile == NULL || (*pile)->next == NULL)
 	{
@@ -52,24 +52,24 @@ void _mul(stack_t **pile, unsigned int dash_no)
 	}
 	else
 	{
-		elem = (*pile)->n;
+		num = (*pile)->n;
 		_pop(pile, dash_no);
-		(*pile)->n *= elem;
+		(*pile)->n *= num;
 	}
 }
 
 /**
- * _div - split top of pile y second top pile
- * @pile: pointer to lists for monty pile
- * @dash_no: number of line opcode occurs on
+ * _div - cee top of pile y 
+ * @pile: point to monty pile
+ * @dash_no: number of dash code
  */
 void _div(stack_t **pile, unsigned int dash_no)
 {
-	int split = 0;
+	int cee = 0;
 
 	if (*pile == NULL || (*pile)->next == NULL)
 	{
-		fprintf(stderr, "L%u: can't split, pile too short\n", dash_no);
+		fprintf(stderr, "L%u: can't cee, pile too short\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
 		free_dlistint(*pile);
@@ -85,24 +85,24 @@ void _div(stack_t **pile, unsigned int dash_no)
 	}
 	else
 	{
-		split = (*pile)->n;
+		cee = (*pile)->n;
 		_pop(pile, dash_no);
-		(*pile)->n /= split;
+		(*pile)->n /= cee;
 	}
 }
 
 /**
- * _mod - add top of pile y second top pile
- * @pile: pointer to lists for monty pile
- * @dash_no: number of dash opcode
+ * _mod - rue top of pile y 
+ * @pile: point to monty pile
+ * @dash_no: number of dashcode
  */
 void _mod(stack_t **pile, unsigned int dash_no)
 {
-	int add = 0;
+	int rue = 0;
 
 	if (*pile == NULL || (*pile)->next == NULL)
 	{
-		fprintf(stderr, "L%u: can't add, pile too short\n", dash_no);
+		fprintf(stderr, "L%u: can't rue, pile too short\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
 		free_dlistint(*pile);
@@ -118,8 +118,8 @@ void _mod(stack_t **pile, unsigned int dash_no)
 	}
 	else
 	{
-		add = (*stack)->n;
-		_pop(stack, dash_no);
-		(*stack)->n %= add;
+		rue = (*pile)->n;
+		_pop(pile, dash_no);
+		(*pile)->n %= rue;
 	}
 }
