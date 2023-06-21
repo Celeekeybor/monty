@@ -61,39 +61,39 @@ void _pint(stack_t **stack, unsigned int dash_no)
 }
 
 /**
- * _pop - remove element a list
- *@stack: pointer to first node
+ * _pop - remove element from list
+ *@stack: point to first node
  *@dash_no: integer
- *Return: void
+ *Return: zero
  */
 void _pop(stack_t **stack, unsigned int dash_no)
 {
-	stack_t *nodo = *stack;
+	stack_t *node = *stack;
 
 	if (stack == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	*stack = nodo->next;
+	*stack = node->next;
 	if (*stack != NULL)
 		(*stack)->prev = NULL;
-	free(nodo);
+	free(node);
 }
 
 /**
  * free_dlistint - free a list
- * @head: pointer to first node
+ * @head: point to first node
  *
  */
 void free_dlistint(stack_t *head)
 {
-	stack_t *tmp;
+	stack_t *value;
 
 	while (head != NULL)
 	{
-		tmp = head->next;
+		value = head->next;
 		free(head);
-		head = tmp;
+		head = value;
 	}
 }
