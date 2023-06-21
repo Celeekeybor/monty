@@ -1,39 +1,39 @@
 #include "monty.h"
 /**
- * _push - push into a pile
- * @pile: monty list
+ * _push - push int to a stack
+ * @stack: linked lists for monty stack
  * @dash_no: number of opcode
  */
-void _push(stack_t **pile, __attribute__ ((unused))unsigned int dash_no)
+void _push(stack_t **stack, __attribute__ ((unused))unsigned int dash_no)
 {
-	stack_t *top;
+	stack_t *head;
 	(void)dash_no;
 
-	top = malloc(sizeof(stack_t));
-	if (top == NULL)
+	head = malloc(sizeof(stack_t));
+	if (head == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	top->n = var_global.push_arg;
-	top->next = *pile;
-	top->prev = NULL;
-	if (*pile != NULL)
-		(*pile)->prev = top;
-	*pile = top;
+	head->n = var_global.push_arg;
+	head->next = *stack;
+	head->prev = NULL;
+	if (*stack != NULL)
+    {
+		(*stack)->prev = head;
+    }
+	*stack = head;
 }
-
 /**
  * _pall - print all function
- * @pile: pointer to linked list pile
+ * @stack: pointer to linked list stack
  * @dash_no: number of line opcode occurs on
  */
-void _pall(stack_t **pile, __attribute__ ((unused))unsigned int dash_no)
+void _pall(stack_t **stack, __attribute__ ((unused))unsigned int dash_no)
 {
 	stack_t *runner;
 
-	runner = *pile;
+	runner = *stack;
 	while (runner != NULL)
 	{
 		printf("%d\n", runner->n);
@@ -42,19 +42,19 @@ void _pall(stack_t **pile, __attribute__ ((unused))unsigned int dash_no)
 }
 
 /**
- * _pint - print int a top of pile
- * @pile: pointer to linked list pile
+ * _pint - print int a head of stack
+ * @stack: pointer to linked list stack
  * @dash_no: number of line opcode occurs on
  *
  */
-void _pint(stack_t **pile, unsigned int dash_no)
+void _pint(stack_t **stack, unsigned int dash_no)
 {
 	stack_t *runner;
 
-	runner = *pile;
+	runner = *stack;
 	if (runner == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, pile empty\n", dash_no);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", runner->n);
@@ -62,22 +62,22 @@ void _pint(stack_t **pile, unsigned int dash_no)
 
 /**
  * _pop - remove element a list
- *@pile: pointer to first node
+ *@stack: pointer to first node
  *@dash_no: integer
  *Return: void
  */
-void _pop(stack_t **pile, unsigned int dash_no)
+void _pop(stack_t **stack, unsigned int dash_no)
 {
-	stack_t *nodo = *pile;
+	stack_t *nodo = *stack;
 
-	if (pile == NULL || *pile == NULL)
+	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty pile\n", dash_no);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	*pile = nodo->next;
-	if (*pile != NULL)
-		(*pile)->prev = NULL;
+	*stack = nodo->next;
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
 	free(nodo);
 }
 
