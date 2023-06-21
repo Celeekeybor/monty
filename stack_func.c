@@ -1,55 +1,55 @@
 #include "monty.h"
 /**
  * _push - push int to a stack
- * @stack: linked lists
- * @line_number: number of line opcode
+ * @stack: linked lists for monty stack
+ * @line_number: number of line opcode occurs on
  */
 void _push(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
 {
-	stack_t *head;
+	stack_t *top;
 	(void)line_number;
 
-	head = malloc(sizeof(stack_t));
-	if (head == NULL)
+	top = malloc(sizeof(stack_t));
+	if (top == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	head->n = var_global.push_arg;
-	head->next = *stack;
-	head->prev = NULL;
+	top->n = var_global.push_arg;
+	top->next = *stack;
+	top->prev = NULL;
 	if (*stack != NULL)
-		(*stack)->prev = head;
-	*stack = head;
+		(*stack)->prev = top;
+	*stack = top;
 }
 
 /**
  * _pall - print all function
- * @stack: point to the linked list
- * @line_number: number of line opcode 
+ * @stack: pointer to linked list stack
+ * @line_number: number of line opcode occurs on
  */
 void _pall(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
 {
-	stack_t *checker;
+	stack_t *runner;
 
-	checker = *stack;
-	while (checker != NULL)
+	runner = *stack;
+	while (runner != NULL)
 	{
-		printf("%d\n", checker->n);
-		checker = checker->next;
+		printf("%d\n", runner->n);
+		runner = runner->next;
 	}
 }
 
 /**
- * _pint - print int a head of stack
- * @stack: point to the linked list stack
- * @line_number: number of line opcode 
+ * _pint - print int a top of stack
+ * @stack: pointer to linked list stack
+ * @line_number: number of line opcode occurs on
  *
  */
 void _pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *checker;
+	stack_t *runner;
 
 	runner = *stack;
 	if (runner == NULL)
