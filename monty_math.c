@@ -1,125 +1,125 @@
 #include "monty.h"
 
 /**
- * _sub - sub top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _sub - replace top of stack y 
+ * @pile: pointer to lists monty pile
+ * @dash_no: number of dash opcode occurs on
  */
-void _sub(stack_t **stack, unsigned int line_number)
+void _sub(stack_t **pile, unsigned int dash_no)
 {
-	stack_t *tmp = *stack;
-	int sub = 0, i = 0;
+	stack_t *tmp = *pile;
+	int replace = 0, val = 0;
 
 	if (tmp == NULL)
 	{
-		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't replace, pile too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
 
 	while (tmp)
 	{
 		tmp = tmp->next;
-		i++;
+		val++;
 	}
 
-	if (stack == NULL || (*stack)->next == NULL || i <= 1)
+	if (pile == NULL || (*pile)->next == NULL || val <= 1)
 	{
-		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't replace, pile too short\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	sub = (*stack)->next->n - (*stack)->n;
-	_pop(stack, line_number);
+	replace = (*pile)->next->n - (*pile)->n;
+	_pop(pile, dash_no);
 
-	(*stack)->n = sub;
+	(*pile)->n = replace;
 }
 
 /**
- * _mul - mul top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _mul - mul top of pile y second top pile
+ * @pile: pointer to lists for monty pile
+ * @dash_no: number of line opcode occurs on
  */
-void _mul(stack_t **stack, unsigned int line_number)
+void _mul(stack_t **pile, unsigned int dash_no)
 {
-	int aux;
+	int elem;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (*pile == NULL || (*pile)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't mul, pile too short\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*pile);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		aux = (*stack)->n;
-		_pop(stack, line_number);
-		(*stack)->n *= aux;
+		elem = (*pile)->n;
+		_pop(pile, dash_no);
+		(*pile)->n *= elem;
 	}
 }
 
 /**
- * _div - div top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _div - split top of pile y second top pile
+ * @pile: pointer to lists for monty pile
+ * @dash_no: number of line opcode occurs on
  */
-void _div(stack_t **stack, unsigned int line_number)
+void _div(stack_t **pile, unsigned int dash_no)
 {
-	int div = 0;
+	int split = 0;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (*pile == NULL || (*pile)->next == NULL)
 	{
-		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't split, pile too short\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*pile);
 		exit(EXIT_FAILURE);
 	}
-	else if ((*stack)->n == 0)
+	else if ((*pile)->n == 0)
 	{
-		fprintf(stderr, "L%d: division by zero\n", line_number);
+		fprintf(stderr, "L%d: division by zero\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*pile);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		div = (*stack)->n;
-		_pop(stack, line_number);
-		(*stack)->n /= div;
+		split = (*pile)->n;
+		_pop(pile, dash_no);
+		(*pile)->n /= split;
 	}
 }
 
 /**
- * _mod - mod top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _mod - add top of pile y second top pile
+ * @pile: pointer to lists for monty pile
+ * @dash_no: number of dash opcode
  */
-void _mod(stack_t **stack, unsigned int line_number)
+void _mod(stack_t **pile, unsigned int dash_no)
 {
-	int mod = 0;
+	int add = 0;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (*pile == NULL || (*pile)->next == NULL)
 	{
-		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't add, pile too short\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*pile);
 		exit(EXIT_FAILURE);
 	}
-	else if ((*stack)->n == 0)
+	else if ((*pile)->n == 0)
 	{
-		fprintf(stderr, "L%d: division by zero\n", line_number);
+		fprintf(stderr, "L%d: division by zero\n", dash_no);
 		free(var_global.buffer);
 		fclose(var_global.file);
-		free_dlistint(*stack);
+		free_dlistint(*pile);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		mod = (*stack)->n;
-		_pop(stack, line_number);
-		(*stack)->n %= mod;
+		add = (*stack)->n;
+		_pop(stack, dash_no);
+		(*stack)->n %= add;
 	}
 }
