@@ -1,13 +1,13 @@
 #include "monty.h"
 /**
- * _push - push  to a pile
- * @pile: monty pile linked list
- * @queue_no: number of line opcode 
+ * _push - push into the pile
+ * @pile: monty list
+ * @count_no: number of opcode pile
  */
-void _push(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
+void _push(stack_t **pile, __attribute__ ((unused))unsigned int count_no)
 {
 	stack_t *up;
-	(void)queue_no;
+	(void)count_no;
 
 	up = malloc(sizeof(stack_t));
 	if (up == NULL)
@@ -26,10 +26,10 @@ void _push(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
 
 /**
  * _pall - print all function
- * @pile: pointer to linked list pile
- * @queue_no: number of line opcode 
+ * @pile: monty list
+ * @count_no: number of opcode pile
  */
-void _pall(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
+void _pall(stack_t **pile, __attribute__ ((unused))unsigned int count_no)
 {
 	stack_t *checker;
 
@@ -43,18 +43,18 @@ void _pall(stack_t **pile, __attribute__ ((unused))unsigned int queue_no)
 
 /**
  * _pint - print int a up of pile
- * @pile: point to linked list pile
- * @queue_no: number of line opcode 
+ * @pile: pointer to linked list pile
+ * @count_no: number of opcode pile
  *
  */
-void _pint(stack_t **pile, unsigned int queue_no)
+void _pint(stack_t **pile, unsigned int count_no)
 {
 	stack_t *checker;
 
 	checker = *pile;
 	if (checker == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, pile empty\n", queue_no);
+		fprintf(stderr, "L%d: can't pint, pile empty\n", count_no);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", checker->n);
@@ -62,17 +62,17 @@ void _pint(stack_t **pile, unsigned int queue_no)
 
 /**
  * _pop - remove element a list
- *@pile: point to first node
- *@queue_no: integer
+ *@pile: pointer to first node
+ *@count_no: number of opcode pile
  *Return: zero
  */
-void _pop(stack_t **pile, unsigned int queue_no)
+void _pop(stack_t **pile, unsigned int count_no)
 {
 	stack_t *node = *pile;
 
 	if (pile == NULL || *pile == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty pile\n", queue_no);
+		fprintf(stderr, "L%d: can't pop an empty pile\n", count_no);
 		exit(EXIT_FAILURE);
 	}
 	*pile = node->next;
@@ -88,12 +88,12 @@ void _pop(stack_t **pile, unsigned int queue_no)
  */
 void free_dlistint(stack_t *head)
 {
-	stack_t *temp;
+	stack_t *value;
 
 	while (head != NULL)
 	{
-		temp = head->next;
+		value = head->next;
 		free(head);
-		head = temp;
+		head = value;
 	}
 }
