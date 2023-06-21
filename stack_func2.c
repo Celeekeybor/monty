@@ -1,85 +1,85 @@
 #include "monty.h"
 /**
  * _swap - swap top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * @stack: lists for monty stack
+ * @number: number of line opcode 
  */
 
-void _swap(stack_t **stack, unsigned int line_number)
+void _swap(stack_t **stack, unsigned int number)
 {
-	stack_t *runner;
-	int tmp;
+	stack_t *checker;
+	int num;
 
-	runner = *stack;
-	if (runner == NULL || runner->next == NULL)
+	checker = *stack;
+	if (checker == NULL || checker->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", number);
 		exit(EXIT_FAILURE);
 	}
-	tmp = runner->n;
-	runner->n = runner->next->n;
-	runner->next->n = tmp;
+	num = checker->n;
+	checker->n = checker->next->n;
+	checker->next->n = num;
 }
 
 /**
  * _add - add top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * @stack: lists for monty stack
+ * @number: number of line opcode
  */
 
-void _add(stack_t **stack, unsigned int line_number)
+void _add(stack_t **stack, unsigned int number)
 {
-	stack_t *tmp = *stack;
+	stack_t *num = *stack;
 	int sum = 0, i = 0;
 
-	if (tmp == NULL)
+	if (num == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't add, stack too short\n", number);
 		exit(EXIT_FAILURE);
 	}
 
-	while (tmp)
+	while (num)
 	{
-		tmp = tmp->next;
+		num = num->next;
 		i++;
 	}
 
 	if (stack == NULL || (*stack)->next == NULL || i <= 1)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't add, stack too short\n", number);
 		exit(EXIT_FAILURE);
 	}
 	sum = (*stack)->next->n + (*stack)->n;
-	_pop(stack, line_number);
+	_pop(stack, number);
 
 	(*stack)->n = sum;
 }
 
 /**
  * _nop - nop top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * @stack: lists for monty stack
+ * @number: number of line opcode
  */
 
 void _nop(__attribute__ ((unused))stack_t **stack,
-		__attribute__ ((unused)) unsigned int line_number)
+		__attribute__ ((unused)) unsigned int number)
 {
 	;
 }
 
 /**
  * _pchar - prints the ASCII value of a number
- * @stack: pointer to the top of the stack
- * @line_number: the index of the current line
+ * @stack:  top of the stack
+ * @number: the index of the current line
  *
  */
-void _pchar(stack_t **stack, unsigned int line_number)
+void _pchar(stack_t **stack, unsigned int number)
 {
 	int val;
 
 	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", number);
 		free(var_global.buffer);
 		fclose(var_global.file);
 		free_dlistint(*stack);
@@ -89,7 +89,7 @@ void _pchar(stack_t **stack, unsigned int line_number)
 	val = (*stack)->n;
 	if (val > 127 || val < 0)
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", number);
 		free(var_global.buffer);
 		fclose(var_global.file);
 		free_dlistint(*stack);
@@ -102,12 +102,12 @@ void _pchar(stack_t **stack, unsigned int line_number)
 
 /**
  * _isalpha - checks if int is in alphabet
- * @c: int
+ * @k: int
  * Return: 1 if yes, 0 if no
  */
-int _isalpha(int c)
+int _isalpha(int k)
 {
-	if ((c >= 97 && c <= 122) || (c >= 65 && c <= 90))
+	if ((k >= 97 && k <= 122) || (k >= 65 && k <= 90))
 		return (1);
 	else
 		return (0);
