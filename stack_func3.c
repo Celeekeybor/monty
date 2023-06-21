@@ -1,45 +1,45 @@
 #include "monty.h"
 
 /**
- * _pstr - mod top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _pstr - mod top of stack y 
+ * @stack: point to the lists in monty stack
+ * @number: number of line opcode 
  */
-void _pstr(stack_t **stack, unsigned int line_number)
+void _pstr(stack_t **stack, unsigned int number)
 {
 	stack_t *tmp = *stack;
-	int c = 0;
+	int num = 0;
 
-	(void)line_number;
+	(void)number;
 
 
 	while (tmp)
 	{
-		c = tmp->n;
-		if (c == 0 || _isalpha(c) == 0)
+		num = tmp->n;
+		if (num == 0 || _isalpha(num) == 0)
 			break;
-		putchar(c);
+		putchar(num);
 		tmp = tmp->next;
 	}
 	putchar('\n');
 }
 
 /**
- * _rotl - mod top of stack y second top stack
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _rotl - mod top of stack y
+ * @stack: lists for monty stack
+ * @number: number of line opcode 
  */
-void _rotl(stack_t **stack, unsigned int line_number)
+void _rotl(stack_t **stack, unsigned int number)
 {
 	stack_t *runner = *stack;
 
 
-	int aux1 = 0;
+	int val = 0;
 
-	if (!line_number || !stack || !*stack || !(*stack)->next)
+	if (!number || !stack || !*stack || !(*stack)->next)
 		return;
 
-	aux1 = runner->n;
+	val = runner->n;
 
 	while (runner->next)
 	{
@@ -47,33 +47,33 @@ void _rotl(stack_t **stack, unsigned int line_number)
 		runner->prev->n = runner->n;
 	}
 
-	runner->n = aux1;
+	runner->n = val;
 }
 
 /**
- * _rotr - mod top of stack y second top stacks
- * @stack: pointer to lists for monty stack
- * @line_number: number of line opcode occurs on
+ * _rotr - mod top of stack y
+ * @stack: lists for monty stack
+ * @number: number of line opcode 
  */
-void _rotr(stack_t **stack, unsigned int line_number)
+void _rotr(stack_t **stack, unsigned int number)
 {
-	stack_t *runner = *stack;
+	stack_t *checker = *stack;
 
-	int aux1 = 0;
+	int val = 0;
 
-	if (!line_number || !stack || !*stack || !(*stack)->next)
+	if (!number || !stack || !*stack || !(*stack)->next)
 		return;
 
-	while (runner->next)
-		runner = runner->next;
+	while (checker->next)
+		checker = checker->next;
 
-	aux1 = runner->n;
+	val = checker->n;
 
-	while (runner->prev)
+	while (checker->prev)
 	{
-		runner = runner->prev;
-		runner->next->n = runner->n;
+		checker = checker->prev;
+		checker->next->n = checker->n;
 	}
 
-	runner->n = aux1;
+	checker->n = val;
 }
