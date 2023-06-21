@@ -26,18 +26,18 @@ void _push(stack_t **stack, __attribute__ ((unused))unsigned int dash_no)
 }
 /**
  * _pall - print all function
- * @stack: pointer to linked list stack
- * @dash_no: number of line opcode occurs on
+ * @stack: pointer to stack linked list
+ * @dash_no: number of dash opcode
  */
 void _pall(stack_t **stack, __attribute__ ((unused))unsigned int dash_no)
 {
-	stack_t *runner;
+	stack_t *checker;
 
-	runner = *stack;
-	while (runner != NULL)
+	checker = *stack;
+	while (checker != NULL)
 	{
-		printf("%d\n", runner->n);
-		runner = runner->next;
+		printf("%d\n", checker->n);
+		checker = checker->next;
 	}
 }
 
@@ -49,15 +49,15 @@ void _pall(stack_t **stack, __attribute__ ((unused))unsigned int dash_no)
  */
 void _pint(stack_t **stack, unsigned int dash_no)
 {
-	stack_t *runner;
+	stack_t *checker;
 
-	runner = *stack;
-	if (runner == NULL)
+	checker = *stack;
+	if (checker == NULL)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", dash_no);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", runner->n);
+	printf("%d\n", checker->n);
 }
 
 /**
