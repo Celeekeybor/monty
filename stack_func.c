@@ -1,13 +1,13 @@
 #include "monty.h"
 /**
  * _push - push int to a stack
- * @stack: linked lists for monty stack
- * @number: number of line opcode
+ * @stack: linked lists
+ * @line_number: number of line opcode
  */
-void _push(stack_t **stack, __attribute__ ((unused))unsigned int number)
+void _push(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
 {
 	stack_t *head;
-	(void)number;
+	(void)line_number;
 
 	head = malloc(sizeof(stack_t));
 	if (head == NULL)
@@ -26,10 +26,10 @@ void _push(stack_t **stack, __attribute__ ((unused))unsigned int number)
 
 /**
  * _pall - print all function
- * @stack: point to linked list 
- * @number: number of line opcode 
+ * @stack: point to the linked list
+ * @line_number: number of line opcode 
  */
-void _pall(stack_t **stack, __attribute__ ((unused))unsigned int number)
+void _pall(stack_t **stack, __attribute__ ((unused))unsigned int line_number)
 {
 	stack_t *checker;
 
@@ -44,17 +44,17 @@ void _pall(stack_t **stack, __attribute__ ((unused))unsigned int number)
 /**
  * _pint - print int a head of stack
  * @stack: point to the linked list stack
- * @number: number of line opcode 
+ * @line_number: number of line opcode 
  *
  */
-void _pint(stack_t **stack, unsigned int number)
+void _pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *checker;
 
 	runner = *stack;
 	if (runner == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", runner->n);
@@ -62,17 +62,17 @@ void _pint(stack_t **stack, unsigned int number)
 
 /**
  * _pop - remove element a list
- *@stack: point to the first node
- *@number: integer
- *Return: zero
+ *@stack: pointer to first node
+ *@line_number: integer
+ *Return: void
  */
-void _pop(stack_t **stack, unsigned int number)
+void _pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *nodo = *stack;
 
 	if (stack == NULL || *stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", number);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	*stack = nodo->next;
@@ -83,17 +83,17 @@ void _pop(stack_t **stack, unsigned int number)
 
 /**
  * free_dlistint - free a list
- * @head: point to first node
+ * @head: pointer to first node
  *
  */
 void free_dlistint(stack_t *head)
 {
-	stack_t *value;
+	stack_t *tmp;
 
 	while (head != NULL)
 	{
-		value = head->next;
+		tmp = head->next;
 		free(head);
-		head = value;
+		head = tmp;
 	}
 }
